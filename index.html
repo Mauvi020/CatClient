@@ -3,68 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Website</title>
-
+    <title>Cat Craft | Der ultimative Minecraft Client</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: #0f172a;
-            color: white;
-            font-family: Arial;
+        :root {
+            --primary: #ffb8e0; /* Sanftes Katzen-Rosa */
+            --accent: #d192ff;  /* Violett-Akzent */
+            --bg: #0f111a;      /* Deep Space Blau/Schwarz */
+            --card-bg: #1a1d29;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        * {
             margin: 0;
-            text-align: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hintergrund-Deko */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% -20%, rgba(255, 184, 224, 0.15), transparent 50%);
+            z-index: -1;
         }
 
         header {
-            background: #1e293b;
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 10%;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
 
-        .content {
-            margin-top: 40px;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .ad-box {
-            margin: 40px auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 700px;
-            background: #020617;
-            border-radius: 10px;
-            border: 2px solid #334155;
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 10% 80px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .btn-main {
+            background-color: var(--primary);
+            color: #000;
+            box-shadow: 0 10px 20px rgba(255, 184, 224, 0.2);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 184, 224, 0.4);
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 10%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Download Section */
+        #download {
+            padding: 100px 10%;
+            text-align: center;
+        }
+
+        .download-box {
+            background: linear-gradient(145deg, #1a1d29, #13151f);
+            padding: 60px;
+            border-radius: 40px;
+            border: 2px solid rgba(255, 184, 224, 0.1);
+        }
+
+        .version-badge {
+            background: rgba(255, 184, 224, 0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
         footer {
-            margin-top: 40px;
-            padding: 10px;
-            color: #94a3b8;
-            font-size: 12px;
+            padding: 60px 10%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 20px 5%; }
+            .hero h1 { font-size: 3rem; }
         }
     </style>
 </head>
-
 <body>
 
-<header>
-    Meine einfache Webseite
-</header>
+    <div class="bg-glow"></div>
 
-<div class="content">
-    <h2>Willkommen!</h2>
-    <p>Hier wird später Werbung angezeigt.</p>
+    <header>
+        <div class="logo">
+            <span style="font-size: 2rem;">🐾</span> CAT CRAFT
+        </div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#download">Download</a>
+        </nav>
+    </header>
 
-    <div class="ad-box">
-        <!-- HIER KOMMT DEIN WERBE CODE REIN -->
-        <!-- Später einfach deinen Ad-Code hier einsetzen -->
-        <p>Werbefläche</p>
-    </div>
+    <section class="hero">
+        <h1>Dein Spiel. <br>Deine Regeln.</h1>
+        <p>Erlebe Minecraft mit Cat Craft – der Client für mehr Performance, exklusive Katzen-Cosmetics und ein flüssiges Erlebnis.</p>
+        <a href="#download" class="btn btn-main">Jetzt herunterladen</a>
+    </section>
 
-</div>
+    <section id="features" class="features">
+        <div class="card">
+            <h3>⚡ Performance</h3>
+            <p>Dank modernster Optimierungen holst du das Maximum aus deinen FPS heraus. Kein Ruckeln mehr.</p>
+        </div>
+        <div class="card">
+            <h3>🎀 Cosmetics</h3>
+            <p>Schalte exklusive Capes und Accessoires frei, die deinen Charakter zum Hingucker machen.</p>
+        </div>
+        <div class="card">
+            <h3>🛡️ Anticheat</h3>
+            <p>Sicheres Spielen auf allen Servern mit unserem integrierten Schutz-Modul.</p>
+        </div>
+    </section>
 
-<footer>
-    Simple Test-Seite
-</footer>
+    <section id="download">
+        <div class="download-box">
+            <span class="version-badge">Aktuelle Version: v1.0.4</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 30px;">Bereit für Cat Craft?</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                <a href="DOWNLOAD_LINK_WINDOWS" class="btn btn-main">Download für Windows (.exe)</a>
+                <a href="DOWNLOAD_LINK_JAR" class="btn" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.2);">Universal (.jar)</a>
+            </div>
+            
+            <p style="margin-top: 25px; font-size: 0.9rem; color: var(--text-dim);">
+                Unterstützt Minecraft Versionen 1.8.9 bis 1.20.x
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Discord</a>
+            <a href="#">Twitter</a>
+            <a href="#">Impressum</a>
+        </div>
+        <p>&copy; 2026 Cat Craft Client. Nicht mit Mojang AB verbunden.</p>
+    </footer>
 
 </body>
 </html>
