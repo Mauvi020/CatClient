@@ -2,7 +2,9 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CatClient | Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -10,168 +12,111 @@
     --bg: #0f111a;
     --card-bg: #1a1d29;
     --text: #ffffff;
-    --text-dim: #e0e0e0;
+    --text-dim: #a0a0a0;
 }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f111a, #181a28);
-    color: var(--text);
-    padding: 80px 10%;
-}
-
-h1 {
-    text-align: center;
-    font-size: 2.8rem;
-    margin-bottom: 60px;
-    background: linear-gradient(90deg, #ff8800, #ffaa33);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Shop Grid */
-.shop-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-/* Item Card */
-.item {
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 60px 10%; }
+header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; }
+header a { color: var(--primary); text-decoration: none; margin-left: 20px; font-weight: 700; }
+h1 { text-align: center; margin-bottom: 40px; }
+.shop-container { display: flex; flex-wrap: wrap; justify-content: center; }
+.shop-item {
     background: var(--card-bg);
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 18px 50px rgba(255,136,0,0.4);
-}
-
-.item img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-.item-content {
-    padding: 25px 30px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.item h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, #ff8800, #ffaa33);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.item p {
-    color: var(--text-dim);
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.btn {
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    padding: 14px 28px;
-    border-radius: 16px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-decoration: none;
+    padding: 20px;
+    border-radius: 18px;
+    margin: 10px;
+    width: 220px;
     text-align: center;
 }
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255,136,0,0.5);
-}
-
-.back-btn {
-    display: inline-block;
-    margin-top: 50px;
-    background: linear-gradient(135deg, #ffffff, #ffcc88);
-    color: #000;
-    padding: 14px 30px;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.back-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255,136,0,0.4);
-}
-
-@media (max-width: 768px) {
-    body {
-        padding: 50px 5%;
-    }
-
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    .item img {
-        height: 180px;
-    }
-}
+.shop-item img { width: 100%; border-radius: 12px; margin-bottom: 12px; }
+.btn-main { background: var(--primary); color: black; padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; }
 </style>
 </head>
-
 <body>
 
-<h1>🎨 Cosmetics Shop</h1>
-
-<div class="shop-grid">
-
-    <div class="item">
-        <img src="orange_cat_cape.png" alt="Orange Cat Cape">
-        <div class="item-content">
-            <div>
-                <h2>Orange Cat Cape</h2>
-                <p>Legendäres Katzen-Cape</p>
-                <p>Preis: 3,99€</p>
-            </div>
-            <button class="btn">Kaufen</button>
-        </div>
+<header>
+    <div class="logo">🐾 CatClient Shop</div>
+    <div>
+        <a href="index.html">Zurück</a>
+        <a id="login-btn" href="#">Login</a>
     </div>
+</header>
 
-    <div class="item">
-        <img src="blue_cat_hat.png" alt="Blauer Katzenhut">
-        <div class="item-content">
-            <div>
-                <h2>Blauer Katzenhut</h2>
-                <p>Stylischer Kopfschmuck für deinen CatClient</p>
-                <p>Preis: 2,99€</p>
-            </div>
-            <button class="btn">Kaufen</button>
-        </div>
-    </div>
+<h1>🎨 Shop</h1>
 
-    <!-- Weitere Items hier... -->
-
+<div class="shop-container" id="shop-items">
+    <!-- Shop-Items aus Firestore werden hier geladen -->
 </div>
 
-<a href="index.html" class="back-btn">← Zurück</a>
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
+  authDomain: "catclient-app.firebaseapp.com",
+  projectId: "catclient-app",
+  storageBucket: "catclient-app.appspot.com",
+  messagingSenderId: "421552104568",
+  appId: "1:421552104568:web:def5045766ba863f90f98d",
+  measurementId: "G-6Z48QJMQNJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const loginBtn = document.getElementById("login-btn");
+const provider = new GoogleAuthProvider();
+
+// Login/Logout Button
+loginBtn.addEventListener("click", () => {
+    if(auth.currentUser){
+        signOut(auth);
+    } else {
+        signInWithPopup(auth, provider);
+    }
+});
+
+onAuthStateChanged(auth, user => {
+    if(user) loginBtn.textContent = "Logout"; 
+    else loginBtn.textContent = "Login";
+});
+
+// Shop laden
+async function loadShop(){
+    const shopContainer = document.getElementById("shop-items");
+    shopContainer.innerHTML = "";
+    const snapshot = await getDocs(collection(db,"shop"));
+    snapshot.forEach(docSnap=>{
+        const data = docSnap.data();
+        const div = document.createElement("div");
+        div.className="shop-item";
+        div.innerHTML = `
+            <img src="${data.imageURL}" alt="${data.name}">
+            <h4>${data.name}</h4>
+            <p>Preis: $${data.price}</p>
+            <button class="btn-main">Kaufen</button>
+        `;
+        // Kaufen-Button
+        const btn = div.querySelector("button");
+        btn.addEventListener("click", async ()=>{
+            if(!auth.currentUser){
+                alert("Bitte einloggen!");
+                return;
+            }
+            const userRef = doc(db,"users",auth.currentUser.uid);
+            await setDoc(userRef,{ownedCosmetics: arrayUnion(docSnap.id)},{merge:true});
+            alert(`Du hast ${data.name} gekauft!`);
+        });
+        shopContainer.appendChild(div);
+    });
+}
+
+loadShop();
+</script>
 
 </body>
 </html>
