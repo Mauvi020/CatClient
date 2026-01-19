@@ -3,224 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CatClient | Der ultimative Minecraft Client</title>
+<title>CatClient | Landing Page</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --primary: #ff8800;
-    --bg: #0f111a;
-    --card-bg: #1a1d29;
-    --text: #ffffff;
-    --text-dim: #e0e0e0;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f111a, #181a28);
-    color: var(--text);
-}
-
-header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(10px);
-    background: rgba(15,17,26,0.9);
-    padding: 20px 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 100;
-}
-
-/* Obere Reihe: Logo + Login */
-header .top-row {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-header .top-row .logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-}
-
-header .top-row a.btn-login {
-    padding: 12px 28px;
-    border-radius: 14px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-header .top-row a.btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255,136,0,0.5);
-}
-
-/* Untere Reihe: Navigation, mittig */
-header .bottom-row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-}
-
-header .bottom-row a {
-    color: #f5f5f5;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-header .bottom-row a:hover {
-    color: var(--primary);
-}
-
-/* Hero */
-.hero {
-    padding: 120px 10%;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    background: linear-gradient(90deg, #ff8800, #ffaa33);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    color: var(--text-dim);
-}
-
-.btn-main {
-    padding: 16px 32px;
-    border-radius: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-block;
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-main:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 136, 0, 0.5);
-}
-
-section {
-    padding: 90px 10%;
-}
-
-/* Feature Cards */
-.card {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 26px;
-    margin-bottom: 30px;
-}
-
-/* Download Feld */
-#download {
-    display: flex;
-    justify-content: center;
-}
-
-.download-field {
-    background: linear-gradient(180deg, #1a1d29 0%, #22253a 100%);
-    padding: 50px;
-    border-radius: 30px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-}
-
-.download-field h2 {
-    margin-bottom: 10px;
-    font-size: 2.2rem;
-    color: #fff;
-}
-
-.download-field p {
-    margin-bottom: 30px;
-    color: #f0e0c0;
-    font-weight: 500;
-}
-
-/* Download Button */
-.download-container .btn-main {
-    width: 100%;
-    max-width: 250px;
-    padding: 18px 0;
-    border-radius: 20px;
-    font-weight: 700;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 40px 10%;
-    color: var(--text-dim);
-    font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.2rem;
+    :root {
+        --primary: #ff8800;
+        --bg: #0f111a;
+        --card-bg: #1a1d29;
+        --text: #ffffff;
+        --text-dim: #a0a0a0;
     }
-
-    .hero p {
-        font-size: 1rem;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--text);
     }
-
-    header .bottom-row {
-        gap: 20px;
+    header {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(10px);
+        background: rgba(15,17,26,0.7);
+        padding: 25px 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-
-    .download-field {
-        padding: 40px 20px;
+    nav a {
+        color: var(--text-dim);
+        text-decoration: none;
+        margin-left: 25px;
     }
-}
+    nav a:hover { color: var(--primary); }
+    .hero {
+        padding: 120px 10%;
+        text-align: center;
+    }
+    .btn {
+        padding: 16px 32px;
+        border-radius: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .btn-main { background: var(--primary); color: black; }
+    section { padding: 90px 10%; }
+    .card {
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 26px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .shop-item {
+        display: inline-block;
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 18px;
+        margin: 10px;
+        width: 220px;
+        vertical-align: top;
+    }
+    .shop-item img { width: 100%; border-radius: 12px; margin-bottom: 12px; }
 </style>
-</head>
 
+</head>
 <body>
 
 <header>
-    <div class="top-row">
-        <div class="logo">🐾 CatClient</div>
-        <a href="login.html" class="btn-login">Login</a>
-    </div>
-    <div class="bottom-row">
+    <div class="logo">🐾 CatClient</div>
+    <nav>
         <a href="#features">Features</a>
-        <a href="#download">Download</a>
         <a href="shop.html">Shop</a>
-    </div>
+        <a href="account.html">Account</a>
+        <a id="login-btn" class="btn btn-main">Login</a>
+    </nav>
 </header>
 
 <section class="hero">
     <h1>Dein Spiel.<br>Deine Regeln.</h1>
     <p>Mehr FPS, mehr Kontrolle, Cosmetics für alle CatClient Nutzer.</p>
-    <a href="#download" class="btn-main">Jetzt herunterladen</a>
+    <a href="#shop" class="btn btn-main">Jetzt Shop ansehen</a>
 </section>
 
 <section id="features">
@@ -234,19 +99,85 @@ footer {
     </div>
 </section>
 
-<section id="download">
-    <div class="download-field">
-        <h2>Download</h2>
-        <p>Lade den CatClient herunter und starte direkt!</p>
-        <div class="download-container">
-            <a href="duckmod-0.1.0.jar" download class="btn-main">Download (.jar)</a>
-        </div>
+<section id="shop">
+    <h2>Shop</h2>
+    <div id="shop-items">
+        <!-- Shop-Items aus Firestore werden hier geladen -->
     </div>
 </section>
 
 <footer>
     <p>&copy; 2026 CatClient – Nicht mit Mojang AB verbunden.</p>
 </footer>
+
+<!-- Firebase SDK (Modular v10) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
+  authDomain: "catclient-app.firebaseapp.com",
+  projectId: "catclient-app",
+  storageBucket: "catclient-app.appspot.com",
+  messagingSenderId: "421552104568",
+  appId: "1:421552104568:web:def5045766ba863f90f98d",
+  measurementId: "G-6Z48QJMQNJ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ===== Login / Logout =====
+const loginBtn = document.getElementById("login-btn");
+const provider = new GoogleAuthProvider();
+
+loginBtn.addEventListener("click", () => {
+    if (auth.currentUser) {
+        signOut(auth);
+    } else {
+        signInWithPopup(auth, provider);
+    }
+});
+
+onAuthStateChanged(auth, user => {
+    if(user) {
+        loginBtn.textContent = "Logout";
+        console.log("Eingeloggt als:", user.displayName);
+    } else {
+        loginBtn.textContent = "Login";
+        console.log("Nicht eingeloggt");
+    }
+});
+
+// ===== Firestore Shop laden =====
+async function loadShop() {
+    const shopContainer = document.getElementById("shop-items");
+    shopContainer.innerHTML = "";
+    const snapshot = await getDocs(collection(db, "shop"));
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "shop-item";
+        div.innerHTML = `
+            <img src="${data.imageURL}" alt="${data.name}">
+            <h4>${data.name}</h4>
+            <p>Preis: $${data.price}</p>
+            <button class="btn btn-main">Kaufen</button>
+        `;
+        shopContainer.appendChild(div);
+    });
+}
+
+// Seite laden
+loadShop();
+</script>
 
 </body>
 </html>
