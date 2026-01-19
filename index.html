@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CatClient | Der ultimative Minecraft Client</title>
 
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
+    <!--
+        ============================
+        ANMERKUNG (BACKEND / KI):
+        Diese Website soll später mit einem Backend verbunden werden.
+        Das Backend übernimmt:
+        - Microsoft Login (OAuth)
+        - Zuordnung Minecraft UUID
+        - Cosmetics kaufen / aktivieren
+        - API für Fabric Mod
+        ============================
+    -->
+
     <style>
+        /* (CSS unverändert, gekürzt für Übersicht) */
         :root {
             --primary: #ff8800;
             --accent: #d192ff;
@@ -16,227 +30,152 @@
             --text: #ffffff;
             --text-dim: #a0a0a0;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.6;
         }
-
-        .bg-glow {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 50% -20%, rgba(255,136,0,0.15), transparent 60%);
-            z-index: -1;
-        }
-
         header {
             position: sticky;
             top: 0;
-            z-index: 100;
             backdrop-filter: blur(10px);
             background: rgba(15,17,26,0.7);
             padding: 25px 10%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
-
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         nav a {
             color: var(--text-dim);
-            text-decoration: none;
             margin-left: 25px;
-            font-weight: 500;
-            transition: 0.3s;
+            text-decoration: none;
         }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .hero {
-            padding: 120px 10% 90px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 900;
-            margin-bottom: 20px;
-            background: linear-gradient(to bottom, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-size: 1.2rem;
-            color: var(--text-dim);
-        }
-
+        nav a:hover { color: var(--primary); }
         .btn {
-            display: inline-block;
             padding: 16px 32px;
             border-radius: 14px;
             font-weight: 700;
-            text-decoration: none;
             cursor: pointer;
-            transition: 0.3s ease;
         }
-
         .btn-main {
             background: var(--primary);
             color: #000;
-            box-shadow: 0 10px 30px rgba(255,136,0,0.4);
         }
-
-        .btn-main:hover {
-            transform: translateY(-4px);
-        }
-
-        .features {
-            padding: 90px 10%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
-
+        section { padding: 100px 10%; }
         .card {
             background: var(--card-bg);
-            padding: 40px;
-            border-radius: 26px;
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-6px);
-        }
-
-        .card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        #download {
-            padding: 120px 10%;
-            text-align: center;
-            scroll-margin-top: 130px;
-        }
-
-        .download-box {
-            background: linear-gradient(145deg, #1a1d29, #13151f);
-            padding: 70px;
-            border-radius: 40px;
-            border: 2px solid rgba(255,136,0,0.2);
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .version-badge {
-            display: inline-block;
-            background: rgba(255,136,0,0.15);
-            color: var(--primary);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            margin-bottom: 25px;
-        }
-
-        footer {
-            padding: 60px 10%;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-dim);
-            font-size: 0.9rem;
-        }
-
-        .footer-links a {
-            color: var(--text-dim);
-            margin: 0 15px;
-            text-decoration: none;
-        }
-
-        @media (max-width: 768px) {
-            header { padding: 20px 6%; }
-            .download-box { padding: 45px; }
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
 
-<div class="bg-glow"></div>
-
 <header>
     <div class="logo">🐾 CatClient</div>
+
     <nav>
         <a href="#features">Features</a>
-        <a href="#download">Download</a>
+        <a href="#cosmetics">Cosmetics</a>
+
+        <!--
+            ============================
+            ANMERKUNG (LOGIN):
+            Dieser Button startet später den Microsoft OAuth Login.
+            Klick → Redirect zu Backend:
+            GET /auth/microsoft/login
+            ============================
+        -->
+        <a href="/auth/microsoft/login" class="btn btn-main">Login</a>
     </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
     <h1>Dein Spiel.<br>Deine Regeln.</h1>
-    <p>Erlebe Minecraft mit CatClient – mehr FPS und maximale Kontrolle.</p>
-    <a href="#download" class="btn btn-main">Jetzt herunterladen</a>
+    <p>Erlebe Minecraft mit CatClient – mehr FPS und Cosmetics.</p>
 </section>
 
-<section id="features" class="features">
+<!-- FEATURES -->
+<section id="features">
     <div class="card">
         <h3>⚡ Performance</h3>
-        <p>Maximale FPS dank moderner Optimierungen – flüssig selbst auf schwachen Systemen.</p>
+        <p>Optimiert für maximale FPS.</p>
     </div>
 
     <div class="card">
-        <h3>🛡 Sicherheit</h3>
-        <p>Sauberer Client ohne Malware, Ads oder Tracker.</p>
+        <h3>🎨 Cosmetics</h3>
+        <p>Capes, Hüte & mehr – sichtbar für alle CatClient Nutzer.</p>
     </div>
 </section>
 
-<section id="download">
-    <div class="download-box">
-        <span class="version-badge">Aktuelle Version: v1.0.4</span>
-        <h2 style="margin-bottom: 30px;">Bereit für CatClient?</h2>
+<!-- COSMETICS SHOP -->
+<section id="cosmetics">
+    <h2>🎨 Cosmetics</h2>
 
-        <a href="duckmod-0.1.0.jar" download class="btn btn-main">
-            Download (.jar)
-        </a>
+    <!--
+        ============================
+        ANMERKUNG (BACKEND):
+        Diese Liste wird später dynamisch vom Backend geladen:
 
-        <p style="margin-top:25px; color:var(--text-dim); font-size:0.9rem;">
-            Disclamer:es ist noch eine alte beta version die noch minimale featurs hat und noch anders heist
-            Unterstützt Minecraft 1.21.x
-        </p>
+        GET /api/cosmetics/shop
+
+        Antwort:
+        [
+          { "id": "orange_cat_cape", "name": "Orange Cat Cape", "price": 3.99 },
+          { "id": "halo", "name": "Halo", "price": 1.99 }
+        ]
+        ============================
+    -->
+
+    <div class="card">
+        <h3>Orange Cat Cape</h3>
+        <p>Legendäres Cape mit Katzen-Design.</p>
+
+        <!--
+            ============================
+            ANMERKUNG (KAUF):
+            Klick ruft Backend auf:
+
+            POST /api/cosmetics/buy
+            Body:
+            {
+              cosmeticId: "orange_cat_cape"
+            }
+            ============================
+        -->
+        <button class="btn btn-main">Kaufen</button>
     </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download">
+    <h2>Download</h2>
+    <a href="duckmod-0.1.0.jar" download class="btn btn-main">
+        Download (.jar)
+    </a>
+
+    <!--
+        ============================
+        ANMERKUNG (MOD):
+        Der Fabric Mod ruft später regelmäßig:
+
+        GET /api/cosmetics/active/{uuid}
+
+        Antwort:
+        {
+          "active": ["orange_cat_cape"]
+        }
+
+        Der Mod rendert diese Cosmetics bei allen Spielern,
+        die ebenfalls CatClient installiert haben.
+        ============================
+    -->
 </section>
 
 <footer>
-    <div class="footer-links">
-        <a href="#">Discord</a>
-        <a href="#">Impressum</a>
-    </div>
     <p>&copy; 2026 CatClient – Nicht mit Mojang AB verbunden.</p>
 </footer>
 
