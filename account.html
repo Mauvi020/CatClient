@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>CatClient | Account</title>
+
+    <!--
+        ANMERKUNG (ACCOUNT):
+        Zeigt gekaufte Cosmetics
+        Aktiv / Deaktiv
+    -->
+
+    <style>
+        body {
+            font-family: Inter, sans-serif;
+            background: #0f111a;
+            color: white;
+            padding: 80px 10%;
+        }
+        .cosmetic {
+            background: #1a1d29;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #ff8800;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>👤 Mein Account</h1>
+
+<!--
+    ANMERKUNG (BACKEND):
+    GET /api/cosmetics/user
+
+    Antwort:
+    {
+      "owned": ["orange_cat_cape"],
+      "active": ["orange_cat_cape"]
+    }
+-->
+
+<div class="cosmetic">
+    <h3>Orange Cat Cape</h3>
+
+    <!--
+        ANMERKUNG (AKTIVIEREN):
+        POST /api/cosmetics/activate
+        Body: { cosmeticId: "orange_cat_cape" }
+    -->
+    <button class="btn">An / Aus</button>
+</div>
+
+<a href="index.html">← Zurück</a>
+
+</body>
+</html>
