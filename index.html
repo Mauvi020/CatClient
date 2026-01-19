@@ -24,7 +24,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: var(--bg);
+    background: linear-gradient(135deg, #0f111a, #181a28);
     color: var(--text);
 }
 
@@ -36,23 +36,46 @@ header {
     padding: 20px 10%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     z-index: 100;
 }
 
-/* Header Oben: Logo + Login */
+/* Obere Reihe: Logo + Login */
 header .top-row {
     display: flex;
     width: 100%;
+    max-width: 1200px;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 }
 
-/* Header Unten: Links nebeneinander */
+header .top-row .logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+header .top-row a.btn-login {
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff8800, #ffaa33);
+    color: #000;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+header .top-row a.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255,136,0,0.5);
+}
+
+/* Untere Reihe: Navigation, mittig */
 header .bottom-row {
-    margin-top: 10px;
     display: flex;
-    gap: 30px;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
 }
 
 header .bottom-row a {
@@ -66,6 +89,7 @@ header .bottom-row a:hover {
     color: var(--primary);
 }
 
+/* Hero */
 .hero {
     padding: 120px 10%;
     text-align: center;
@@ -74,6 +98,9 @@ header .bottom-row a:hover {
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 20px;
+    background: linear-gradient(90deg, #ff8800, #ffaa33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero p {
@@ -82,19 +109,16 @@ header .bottom-row a:hover {
     color: var(--text-dim);
 }
 
-.btn {
+.btn-main {
     padding: 16px 32px;
     border-radius: 14px;
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;
     display: inline-block;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-main {
     background: linear-gradient(135deg, #ff8800, #ffaa33);
     color: #000;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-main:hover {
@@ -106,6 +130,7 @@ section {
     padding: 90px 10%;
 }
 
+/* Feature Cards */
 .card {
     background: var(--card-bg);
     padding: 40px;
@@ -123,7 +148,7 @@ section {
     background: linear-gradient(180deg, #1a1d29 0%, #22253a 100%);
     padding: 50px;
     border-radius: 30px;
-    max-width: 700px;
+    max-width: 500px;
     width: 100%;
     text-align: center;
     box-shadow: 0 15px 40px rgba(0,0,0,0.5);
@@ -141,28 +166,16 @@ section {
     font-weight: 500;
 }
 
-/* Download Button Container */
-.download-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.download-container .btn {
-    padding: 18px 40px;
+/* Download Button */
+.download-container .btn-main {
+    width: 100%;
+    max-width: 250px;
+    padding: 18px 0;
     border-radius: 20px;
-    background: linear-gradient(135deg, #ff8800, #ffcc66);
-    color: #000;
     font-weight: 700;
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.download-container .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 136, 0, 0.5);
-}
-
+/* Footer */
 footer {
     text-align: center;
     padding: 40px 10%;
@@ -179,13 +192,12 @@ footer {
         font-size: 1rem;
     }
 
-    .download-container {
-        flex-direction: column;
-        align-items: center;
+    header .bottom-row {
+        gap: 20px;
     }
 
-    header .bottom-row {
-        flex-wrap: wrap;
+    .download-field {
+        padding: 40px 20px;
     }
 }
 </style>
@@ -196,8 +208,7 @@ footer {
 <header>
     <div class="top-row">
         <div class="logo">🐾 CatClient</div>
-        <!-- Link zur Login-Seite -->
-        <a href="login.html" class="btn btn-main">Login</a>
+        <a href="login.html" class="btn-login">Login</a>
     </div>
     <div class="bottom-row">
         <a href="#features">Features</a>
@@ -209,7 +220,7 @@ footer {
 <section class="hero">
     <h1>Dein Spiel.<br>Deine Regeln.</h1>
     <p>Mehr FPS, mehr Kontrolle, Cosmetics für alle CatClient Nutzer.</p>
-    <a href="#download" class="btn btn-main">Jetzt herunterladen</a>
+    <a href="#download" class="btn-main">Jetzt herunterladen</a>
 </section>
 
 <section id="features">
@@ -228,7 +239,7 @@ footer {
         <h2>Download</h2>
         <p>Lade den CatClient herunter und starte direkt!</p>
         <div class="download-container">
-            <a href="duckmod-0.1.0.jar" download class="btn btn-main">Download (.jar)</a>
+            <a href="duckmod-0.1.0.jar" download class="btn-main">Download (.jar)</a>
         </div>
     </div>
 </section>
