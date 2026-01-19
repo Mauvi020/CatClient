@@ -4,184 +4,72 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CatClient | Der ultimative Minecraft Client</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --primary: #ff8800;
-    --bg: #0f111a;
-    --card-bg: #1a1d29;
-    --text: #ffffff;
-    --text-dim: #e0e0e0;
+  --primary: #ff8800;
+  --bg: #0f111a;
+  --card-bg: #1a1d29;
+  --text: #ffffff;
+  --text-dim: #e0e0e0;
 }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f111a, #181a28);
-    color: var(--text);
+  font-family: Inter, sans-serif;
+  background: linear-gradient(135deg, #0f111a, #181a28);
+  color: var(--text);
 }
-
 header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(10px);
-    background: rgba(15,17,26,0.9);
-    padding: 20px 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 100;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(15,17,26,0.9);
+  padding: 20px 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
 }
-
 header .top-row {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
-
-header .top-row .logo {
-    font-size: 1.8rem;
-    font-weight: 900;
+.logo { font-size: 1.8rem; font-weight: 900; }
+.btn-login {
+  padding: 12px 28px;
+  border-radius: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff8800, #ffaa33);
+  color: #000;
+  border: none;
+  cursor: pointer;
 }
-
-header .top-row .btn-login {
-    padding: 12px 28px;
-    border-radius: 14px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-    border: none;
-}
-
-header .top-row .btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255,136,0,0.5);
-}
-
-.user-info {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    margin-left: 15px;
-}
-
-header .bottom-row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-}
-
-header .bottom-row a {
-    color: #f5f5f5;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-header .bottom-row a:hover {
-    color: var(--primary);
-}
-
-.hero {
-    padding: 120px 10%;
-    text-align: center;
-}
-
+.user-info { font-size: 0.9rem; color: var(--text-dim); margin-left: 15px; }
+.hero { padding: 120px 10%; text-align: center; }
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    background: linear-gradient(90deg, #ff8800, #ffaa33);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ff8800, #ffaa33);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    color: var(--text-dim);
-}
-
 .btn-main {
-    padding: 16px 32px;
-    border-radius: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-block;
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    transition: transform 0.2s, box-shadow 0.2s;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff8800, #ffaa33);
+  color: #000;
+  text-decoration: none;
 }
-
-.btn-main:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 136, 0, 0.5);
-}
-
-section {
-    padding: 90px 10%;
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 26px;
-    margin-bottom: 30px;
-}
-
-#download {
-    display: flex;
-    justify-content: center;
-}
-
-.download-field {
-    background: linear-gradient(180deg, #1a1d29 0%, #22253a 100%);
-    padding: 50px;
-    border-radius: 30px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-}
-
-.download-field h2 {
-    margin-bottom: 10px;
-    font-size: 2.2rem;
-    color: #fff;
-}
-
-.download-field p {
-    margin-bottom: 30px;
-    color: #f0e0c0;
-    font-weight: 500;
-}
-
-.download-container .btn-main {
-    width: 100%;
-    max-width: 250px;
-    padding: 18px 0;
-    border-radius: 20px;
-    font-weight: 700;
-}
-
 footer {
-    text-align: center;
-    padding: 40px 10%;
-    color: var(--text-dim);
-    font-size: 0.9rem;
+  text-align: center;
+  padding: 40px 10%;
+  color: var(--text-dim);
 }
 </style>
 </head>
@@ -189,59 +77,28 @@ footer {
 <body>
 
 <header>
-    <div class="top-row">
-        <div class="logo">🐾 CatClient</div>
-        <div>
-            <button id="loginBtn" class="btn-login">Login mit Google</button>
-            <span id="userInfo" class="user-info"></span>
-        </div>
+  <div class="top-row">
+    <div class="logo">🐾 CatClient</div>
+    <div>
+      <button id="loginBtn" class="btn-login">Login mit Microsoft</button>
+      <span id="userInfo" class="user-info"></span>
     </div>
-    <div class="bottom-row">
-        <a href="#features">Features</a>
-        <a href="#download">Download</a>
-        <a href="shop.html">Shop</a>
-    </div>
+  </div>
 </header>
 
 <section class="hero">
-    <h1>Dein Spiel.<br>Deine Regeln.</h1>
-    <p>Mehr FPS, mehr Kontrolle, Cosmetics für alle CatClient Nutzer.</p>
-    <a href="#download" class="btn-main">Jetzt herunterladen</a>
-</section>
-
-<section id="features">
-    <div class="card">
-        <h3>⚡ Performance</h3>
-        <p>Optimiert für maximale FPS.</p>
-    </div>
-    <div class="card">
-        <h3>🎨 Cosmetics</h3>
-        <p>Capes & mehr – online synchronisiert.</p>
-    </div>
-</section>
-
-<section id="download">
-    <div class="download-field">
-        <h2>Download</h2>
-        <p>Lade den CatClient herunter und starte direkt!</p>
-        <div class="download-container">
-            <a id="downloadBtn" href="duckmod-0.1.0.jar" download class="btn-main">
-                Download (.jar)
-            </a>
-        </div>
-    </div>
+  <h1>Dein Spiel.<br>Deine Regeln.</h1>
+  <p>Mehr FPS, mehr Kontrolle, Cosmetics für alle CatClient Nutzer.</p>
+  <a href="shop.html" class="btn-main">Zum Shop</a>
 </section>
 
 <footer>
-    <p>&copy; 2026 CatClient – Nicht mit Mojang AB verbunden.</p>
+  <p>&copy; 2026 CatClient – Nicht mit Mojang AB verbunden.</p>
 </footer>
 
-<!-- Firebase + App Logic -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, OAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
@@ -249,51 +106,31 @@ const firebaseConfig = {
   projectId: "catclient-app",
   storageBucket: "catclient-app.firebasestorage.app",
   messagingSenderId: "421552104568",
-  appId: "1:421552104568:web:def5045766ba863f90f98d",
-  measurementId: "G-6Z48QJMQNJ"
+  appId: "1:421552104568:web:def5045766ba863f90f98d"
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
+const provider = new OAuthProvider("microsoft.com");
 
 const loginBtn = document.getElementById("loginBtn");
 const userInfo = document.getElementById("userInfo");
-const downloadBtn = document.getElementById("downloadBtn");
 
-loginBtn.addEventListener("click", async () => {
+loginBtn.onclick = async () => {
   try {
     await signInWithPopup(auth, provider);
   } catch (e) {
     alert("Login fehlgeschlagen: " + e.message);
   }
-});
+};
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, user => {
   if (user) {
     userInfo.textContent = "Eingeloggt als " + user.displayName;
     loginBtn.style.display = "none";
   } else {
     userInfo.textContent = "";
     loginBtn.style.display = "inline-block";
-  }
-});
-
-downloadBtn.addEventListener("click", async () => {
-  try {
-    await addDoc(collection(db, "downloads"), {
-      file: "duckmod-0.1.0.jar",
-      user: auth.currentUser ? auth.currentUser.uid : null,
-      timestamp: serverTimestamp()
-    });
-
-    logEvent(analytics, "download_clicked", {
-      file_name: "duckmod-0.1.0.jar"
-    });
-  } catch (e) {
-    console.error("Download Tracking Fehler:", e);
   }
 });
 </script>
