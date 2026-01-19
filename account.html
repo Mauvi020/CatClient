@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>CatClient | Account</title>
-
-    <!--
-        ANMERKUNG (ACCOUNT):
-        Zeigt gekaufte Cosmetics
-        Aktiv / Deaktiv
-    -->
-
     <style>
         body {
             font-family: Inter, sans-serif;
@@ -30,6 +23,11 @@
             border-radius: 10px;
             border: none;
             font-weight: 700;
+            cursor: pointer;
+        }
+        .btn.active {
+            background: #00ff88;
+            color: black;
         }
     </style>
 </head>
@@ -38,29 +36,42 @@
 
 <h1>👤 Mein Account</h1>
 
-<!--
-    ANMERKUNG (BACKEND):
-    GET /api/cosmetics/user
-
-    Antwort:
-    {
-      "owned": ["orange_cat_cape"],
-      "active": ["orange_cat_cape"]
-    }
--->
-
 <div class="cosmetic">
     <h3>Orange Cat Cape</h3>
-
-    <!--
-        ANMERKUNG (AKTIVIEREN):
-        POST /api/cosmetics/activate
-        Body: { cosmeticId: "orange_cat_cape" }
-    -->
-    <button class="btn">An / Aus</button>
+    <button class="btn" id="orange_cat_cape_btn">Aus</button>
 </div>
 
 <a href="index.html">← Zurück</a>
+
+<script>
+    // Simulierter "Account"-Status
+    const cosmetics = {
+        orange_cat_cape: false // false = Aus, true = An
+    };
+
+    const btn = document.getElementById("orange_cat_cape_btn");
+
+    // Status anzeigen
+    function updateButton() {
+        if (cosmetics.orange_cat_cape) {
+            btn.textContent = "An";
+            btn.classList.add("active");
+        } else {
+            btn.textContent = "Aus";
+            btn.classList.remove("active");
+        }
+    }
+
+    // Klick-Handler
+    btn.addEventListener("click", () => {
+        // Status umschalten
+        cosmetics.orange_cat_cape = !cosmetics.orange_cat_cape;
+        updateButton();
+    });
+
+    // initial anzeigen
+    updateButton();
+</script>
 
 </body>
 </html>
