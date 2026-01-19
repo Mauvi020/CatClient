@@ -1,156 +1,191 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CatClient | Der ultimative Minecraft Client</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CatClient | Der ultimative Minecraft Client</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary: #ff8800;
-            --bg: #0f111a;
-            --card-bg: #1a1d29;
-            --text: #ffffff;
-            --text-dim: #a0a0a0;
-        }
+<style>
+:root {
+    --primary: #ff8800;
+    --bg: #0f111a;
+    --card-bg: #1a1d29;
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
 
-        header {
-            position: sticky;
-            top: 0;
-            backdrop-filter: blur(10px);
-            background: rgba(15,17,26,0.7);
-            padding: 25px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
+header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+    background: rgba(15,17,26,0.9);
+    padding: 20px 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 100;
+}
 
-        nav a {
-            color: var(--text-dim);
-            text-decoration: none;
-            margin-left: 25px;
-            transition: color 0.2s;
-        }
+header .top-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        nav a:hover {
-            color: var(--primary);
-        }
+header .bottom-row {
+    margin-top: 10px;
+    display: flex;
+    gap: 25px;
+}
 
-        .hero {
-            padding: 120px 10%;
-            text-align: center;
-        }
+nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+}
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
+nav a:hover {
+    color: var(--primary);
+}
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            color: var(--text-dim);
-        }
+.hero {
+    padding: 120px 10%;
+    text-align: center;
+}
 
-        .btn {
-            padding: 16px 32px;
-            border-radius: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-            display: inline-block;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
 
-        .btn-main {
-            background: linear-gradient(135deg, #ff8800, #ffaa33);
-            color: #000;
-        }
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: var(--text-dim);
+}
 
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 136, 0, 0.5);
-        }
+.btn {
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
 
-        section {
-            padding: 90px 10%;
-        }
+.btn-main {
+    background: linear-gradient(135deg, #ff8800, #ffaa33);
+    color: #000;
+}
 
-        .card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 26px;
-            margin-bottom: 30px;
-        }
+.btn-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 136, 0, 0.5);
+}
 
-        /* Download Bereich */
-        #download h2 {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+section {
+    padding: 90px 10%;
+}
 
-        .download-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
+.card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 26px;
+    margin-bottom: 30px;
+}
 
-        .download-container .btn {
-            padding: 18px 40px;
-            border-radius: 20px;
-        }
+#download {
+    padding: 90px 10%;
+    display: flex;
+    justify-content: center;
+}
 
-        footer {
-            text-align: center;
-            padding: 40px 10%;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-        }
+.download-field {
+    background: #1a1d29;
+    padding: 50px;
+    border-radius: 30px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
+.download-field h2 {
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+}
 
-            .hero p {
-                font-size: 1rem;
-            }
+.download-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
 
-            .download-container {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+.download-container .btn {
+    padding: 18px 40px;
+    border-radius: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 10%;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .download-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header .bottom-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">🐾 CatClient</div>
-    <nav>
-        <a href="#features">Features</a>
-        <a href="shop.html">Shop</a>
-        <a href="account.html">Account</a>
+    <div class="top-row">
+        <div class="logo">🐾 CatClient</div>
         <a href="/auth/microsoft/login" class="btn btn-main">Login</a>
-    </nav>
+    </div>
+    <div class="bottom-row">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="shop.html">Shop</a>
+    </div>
 </header>
 
 <section class="hero">
@@ -171,10 +206,11 @@
 </section>
 
 <section id="download">
-    <h2>Download</h2>
-    <div class="download-container">
-        <a href="duckmod-0.1.0.jar" download class="btn btn-main">Download (.jar)</a>
-        <a href="duckmod-0.1.0.zip" download class="btn btn-main">Download (.zip)</a>
+    <div class="download-field">
+        <h2>Download</h2>
+        <div class="download-container">
+            <a href="duckmod-0.1.0.jar" download class="btn btn-main">Download (.jar)</a>
+        </div>
     </div>
 </section>
 
