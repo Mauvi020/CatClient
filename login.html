@@ -3,37 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CatClient | Login</title>
+<title>CatClient | Microsoft Login</title>
 <style>
-body{background:#0f111a;color:white;font-family:Inter,sans-serif;text-align:center;padding:100px;}
-button{background:#ff8800;color:black;border:none;padding:15px 30px;border-radius:12px;font-weight:700;cursor:pointer;}
+body { background:#0f111a; color:white; font-family:Inter,sans-serif; text-align:center; padding:100px; }
+button { background:#2F2FAD; color:white; border:none; padding:15px 30px; border-radius:12px; font-weight:700; cursor:pointer; }
 </style>
 </head>
 <body>
 
 <h1>Login</h1>
-<button id="login-btn">Login mit Google</button>
+<button id="login-btn">Login mit Microsoft</button>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { PublicClientApplication } from "https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
-  authDomain: "catclient-app.firebaseapp.com",
-  projectId: "catclient-app",
-  storageBucket: "catclient-app.appspot.com",
-  messagingSenderId: "421552104568",
-  appId: "1:421552104568:web:def5045766ba863f90f98d",
-  measurementId: "G-6Z48QJMQNJ"
+const msalConfig = {
+    auth: {
+        clientId: "DEIN_MICROSOFT_APP_ID", // Hier deine Microsoft App ID eintragen
+        redirectUri: window.location.href
+    }
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const msalInstance = new PublicClientApplication(msalConfig);
 
-document.getElementById("login-btn").addEventListener("click", ()=>{
-    signInWithPopup(auth,provider).then(res=>alert(`Eingeloggt als ${res.user.displayName}`));
+document.getElementById("login-btn").addEventListener("click", async ()=>{
+    try {
+        const loginResponse = await msalInstance.loginPopup({ scopes: ["user.read"] });
+        alert(`Eingeloggt als ${loginResponse.account.username}`);
+    } catch(err) {
+        console.error(err);
+        alert('Login fehlgeschlagen');
+    }
 });
 </script>
 
