@@ -3,310 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <title>CatClient | Shop</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-
 <style>
-:root {
-    --primary: #ff8800;
-    --bg: #0f111a;
-    --card-bg: #1a1d29;
-    --text: #ffffff;
-    --text-dim: #e0e0e0;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f111a, #181a28);
-    color: var(--text);
-}
-
-/* HEADER (gleich wie index) */
-header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(10px);
-    background: rgba(15,17,26,0.9);
-    padding: 20px 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 100;
-}
-
-header .top-row {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-header .top-row .logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-}
-
-header .top-row .btn-login {
-    padding: 12px 28px;
-    border-radius: 14px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    border: none;
-    cursor: pointer;
-}
-
-.user-info {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    margin-left: 15px;
-}
-
-header .bottom-row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-}
-
-header .bottom-row a {
-    color: #f5f5f5;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-header .bottom-row a:hover {
-    color: var(--primary);
-}
-
-/* PAGE CONTENT */
-h1 {
-    text-align: center;
-    font-size: 2.8rem;
-    margin: 60px 0 50px;
-    background: linear-gradient(90deg, #ff8800, #ffaa33);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.shop-grid {
-    padding: 0 10% 80px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.item {
-    background: var(--card-bg);
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 18px 50px rgba(255,136,0,0.4);
-}
-
-.item img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-.item-content {
-    padding: 25px 30px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.item h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, #ff8800, #ffaa33);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.item p {
-    color: var(--text-dim);
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.btn {
-    background: linear-gradient(135deg, #ff8800, #ffaa33);
-    color: #000;
-    padding: 14px 28px;
-    border-radius: 16px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255,136,0,0.5);
-}
-
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    .shop-grid {
-        padding: 0 5% 60px;
-    }
-
-    .item img {
-        height: 180px;
-    }
-}
+:root{--primary:#ff8800;--bg:#0f111a;--card-bg:#1a1d29;--text:#fff;--text-dim:#e0e0e0;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0f111a,#181a28);color:var(--text);}
+header{position:sticky;top:0;background:rgba(15,17,26,.9);padding:20px 10%;display:flex;flex-direction:column;align-items:center;z-index:100;}
+.top-row{display:flex;width:100%;max-width:1200px;justify-content:space-between;align-items:center;margin-bottom:15px;}
+.logo{font-size:1.8rem;font-weight:900;}
+.btn-login,.btn-logout{padding:12px 24px;border-radius:14px;font-weight:700;background:linear-gradient(135deg,#ff8800,#ffaa33);border:none;cursor:pointer;}
+.user-info{font-size:.9rem;color:var(--text-dim);margin-left:10px;}
+.bottom-row{display:flex;justify-content:center;gap:40px;width:100%;}
+.bottom-row a{color:#f5f5f5;font-weight:600;text-decoration:none;}
+h1{text-align:center;font-size:2.8rem;margin:60px 0;}
+.shop-grid{padding:0 10% 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}
+.item{background:var(--card-bg);border-radius:25px;padding:25px;}
+.btn{background:linear-gradient(135deg,#ff8800,#ffaa33);padding:14px 20px;border-radius:16px;border:none;font-weight:700;cursor:pointer;}
 </style>
 </head>
-
 <body>
 
 <header>
-    <div class="top-row">
-        <div class="logo">🐾 CatClient</div>
-        <div>
-            <button id="loginBtn" class="btn-login">Login mit Microsoft</button>
-            <span id="userInfo" class="user-info"></span>
-        </div>
+  <div class="top-row">
+    <div class="logo">🐾 CatClient</div>
+    <div>
+      <button id="loginBtn" class="btn-login">Login mit Microsoft</button>
+      <button id="logoutBtn" class="btn-logout" style="display:none;">Logout</button>
+      <span id="userInfo" class="user-info"></span>
     </div>
-    <div class="bottom-row">
-        <a href="index.html#features">Features</a>
-        <a href="index.html#download">Download</a>
-        <a href="shop.html">Shop</a>
-    </div>
+  </div>
+  <div class="bottom-row">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#download">Download</a>
+    <a href="shop.html">Shop</a>
+  </div>
 </header>
 
 <h1>🎨 Cosmetics Shop</h1>
 
-<div class="shop-grid">
-
-    <div class="item">
-        <img src="orange_cat_cape.png" alt="Orange Cat Cape">
-        <div class="item-content">
-            <div>
-                <h2>Orange Cat Cape</h2>
-                <p>Legendäres Katzen-Cape</p>
-                <p>Preis: 3,99€</p>
-            </div>
-            <button class="btn buy-btn"
-                data-id="orange_cat_cape"
-                data-name="Orange Cat Cape"
-                data-price="3.99">
-                Kaufen
-            </button>
-        </div>
-    </div>
-
-    <div class="item">
-        <img src="blue_cat_hat.png" alt="Blauer Katzenhut">
-        <div class="item-content">
-            <div>
-                <h2>Blauer Katzenhut</h2>
-                <p>Stylischer Kopfschmuck für deinen CatClient</p>
-                <p>Preis: 2,99€</p>
-            </div>
-            <button class="btn buy-btn"
-                data-id="blue_cat_hat"
-                data-name="Blauer Katzenhut"
-                data-price="2.99">
-                Kaufen
-            </button>
-        </div>
-    </div>
-
+<div class="shop-grid" id="shopGrid">
+  <!-- Items aus Firestore werden hier geladen -->
 </div>
 
-<!-- Firebase + Microsoft Login + Firestore Kauf-Tracking -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, OAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, OAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
-  authDomain: "catclient-app.firebaseapp.com",
-  projectId: "catclient-app",
-  storageBucket: "catclient-app.firebasestorage.app",
-  messagingSenderId: "421552104568",
-  appId: "1:421552104568:web:def5045766ba863f90f98d"
-};
+const firebaseConfig={apiKey:"AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",authDomain:"catclient-app.firebaseapp.com",projectId:"catclient-app",storageBucket:"catclient-app.firebasestorage.app",messagingSenderId:"421552104568",appId:"1:421552104568:web:def5045766ba863f90f98d"};
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const provider=new OAuthProvider("microsoft.com");
+const db=getFirestore(app);
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new OAuthProvider("microsoft.com");
+const loginBtn=document.getElementById("loginBtn");
+const logoutBtn=document.getElementById("logoutBtn");
+const userInfo=document.getElementById("userInfo");
+const shopGrid=document.getElementById("shopGrid");
 
-const loginBtn = document.getElementById("loginBtn");
-const userInfo = document.getElementById("userInfo");
+loginBtn.onclick=()=>signInWithRedirect(auth,provider);
+logoutBtn.onclick=()=>signOut(auth);
+getRedirectResult(auth).catch(console.error);
 
-loginBtn.onclick = async () => {
-  try {
-    await signInWithPopup(auth, provider);
-  } catch (e) {
-    alert("Login fehlgeschlagen: " + e.message);
-  }
-};
-
-onAuthStateChanged(auth, user => {
-  if (user) {
-    userInfo.textContent = "Eingeloggt als " + user.displayName;
-    loginBtn.style.display = "none";
-  } else {
-    userInfo.textContent = "";
-    loginBtn.style.display = "inline-block";
+onAuthStateChanged(auth,user=>{
+  if(user){
+    userInfo.textContent="Eingeloggt als "+user.displayName;
+    loginBtn.style.display="none";
+    logoutBtn.style.display="inline-block";
+  }else{
+    userInfo.textContent="";
+    loginBtn.style.display="inline-block";
+    logoutBtn.style.display="none";
   }
 });
 
-document.querySelectorAll(".buy-btn").forEach(btn => {
-  btn.onclick = async () => {
-    if (!auth.currentUser) {
-      alert("Bitte logge dich zuerst mit Microsoft ein.");
-      return;
-    }
+async function loadShop(){
+  const snap=await getDocs(collection(db,"products"));
+  snap.forEach(docu=>{
+    const d=docu.data();
+    const itemDiv=document.createElement("div");
+    itemDiv.className="item";
+    itemDiv.innerHTML=`<h2>${d.name}</h2><p>Preis: ${d.price}€</p><button class="btn buy-btn">Kaufen</button>`;
+    itemDiv.querySelector(".buy-btn").onclick=async ()=>{
+      if(!auth.currentUser)return alert("Bitte zuerst einloggen.");
+      await addDoc(collection(db,"purchases"),{itemId:docu.id,itemName:d.name,price:d.price,user:auth.currentUser.uid,timestamp:serverTimestamp()});
+      alert("Kauf gespeichert! Stripe kommt als Nächstes.");
+    };
+    shopGrid.appendChild(itemDiv);
+  });
+}
 
-    const itemId = btn.dataset.id;
-    const itemName = btn.dataset.name;
-    const itemPrice = btn.dataset.price;
-
-    try {
-      await addDoc(collection(db, "purchases"), {
-        itemId,
-        itemName,
-        price: itemPrice,
-        user: auth.currentUser.uid,
-        timestamp: serverTimestamp()
-      });
-
-      alert("Kauf gespeichert! (Stripe kommt als Nächstes) 🎉");
-    } catch (e) {
-      console.error("Kauf Fehler:", e);
-      alert("Fehler beim Kauf.");
-    }
-  };
-});
+loadShop();
 </script>
-
 </body>
 </html>
