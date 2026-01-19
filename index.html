@@ -5,26 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CatClient | Der ultimative Minecraft Client</title>
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
     <!--
-        ============================
-        ANMERKUNG (BACKEND / KI):
-        Diese Website soll später mit einem Backend verbunden werden.
-        Das Backend übernimmt:
-        - Microsoft Login (OAuth)
-        - Zuordnung Minecraft UUID
-        - Cosmetics kaufen / aktivieren
-        - API für Fabric Mod
-        ============================
+        ANMERKUNG (SYSTEM):
+        Diese Seite ist NUR Landing Page.
+        Login, Shop und Account sind extra Seiten.
     -->
 
     <style>
-        /* (CSS unverändert, gekürzt für Übersicht) */
         :root {
             --primary: #ff8800;
-            --accent: #d192ff;
             --bg: #0f111a;
             --card-bg: #1a1d29;
             --text: #ffffff;
@@ -33,7 +24,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
         }
         header {
@@ -44,29 +35,34 @@
             padding: 25px 10%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
         nav a {
             color: var(--text-dim);
-            margin-left: 25px;
             text-decoration: none;
+            margin-left: 25px;
         }
         nav a:hover { color: var(--primary); }
+        .hero {
+            padding: 120px 10%;
+            text-align: center;
+        }
         .btn {
             padding: 16px 32px;
             border-radius: 14px;
             font-weight: 700;
-            cursor: pointer;
+            text-decoration: none;
         }
         .btn-main {
             background: var(--primary);
             color: #000;
         }
-        section { padding: 100px 10%; }
+        section { padding: 90px 10%; }
         .card {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 20px;
+            padding: 40px;
+            border-radius: 26px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -75,82 +71,38 @@
 
 <header>
     <div class="logo">🐾 CatClient</div>
-
     <nav>
         <a href="#features">Features</a>
-        <a href="#cosmetics">Cosmetics</a>
+        <a href="shop.html">Shop</a>
+        <a href="account.html">Account</a>
 
         <!--
-            ============================
             ANMERKUNG (LOGIN):
-            Dieser Button startet später den Microsoft OAuth Login.
-            Klick → Redirect zu Backend:
+            Klick → Microsoft OAuth
+            Backend Endpoint:
             GET /auth/microsoft/login
-            ============================
         -->
         <a href="/auth/microsoft/login" class="btn btn-main">Login</a>
     </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
     <h1>Dein Spiel.<br>Deine Regeln.</h1>
-    <p>Erlebe Minecraft mit CatClient – mehr FPS und Cosmetics.</p>
+    <p>Mehr FPS, mehr Kontrolle, Cosmetics für alle CatClient Nutzer.</p>
+    <a href="#download" class="btn btn-main">Jetzt herunterladen</a>
 </section>
 
-<!-- FEATURES -->
 <section id="features">
     <div class="card">
         <h3>⚡ Performance</h3>
         <p>Optimiert für maximale FPS.</p>
     </div>
-
     <div class="card">
         <h3>🎨 Cosmetics</h3>
-        <p>Capes, Hüte & mehr – sichtbar für alle CatClient Nutzer.</p>
+        <p>Capes & mehr – online synchronisiert.</p>
     </div>
 </section>
 
-<!-- COSMETICS SHOP -->
-<section id="cosmetics">
-    <h2>🎨 Cosmetics</h2>
-
-    <!--
-        ============================
-        ANMERKUNG (BACKEND):
-        Diese Liste wird später dynamisch vom Backend geladen:
-
-        GET /api/cosmetics/shop
-
-        Antwort:
-        [
-          { "id": "orange_cat_cape", "name": "Orange Cat Cape", "price": 3.99 },
-          { "id": "halo", "name": "Halo", "price": 1.99 }
-        ]
-        ============================
-    -->
-
-    <div class="card">
-        <h3>Orange Cat Cape</h3>
-        <p>Legendäres Cape mit Katzen-Design.</p>
-
-        <!--
-            ============================
-            ANMERKUNG (KAUF):
-            Klick ruft Backend auf:
-
-            POST /api/cosmetics/buy
-            Body:
-            {
-              cosmeticId: "orange_cat_cape"
-            }
-            ============================
-        -->
-        <button class="btn btn-main">Kaufen</button>
-    </div>
-</section>
-
-<!-- DOWNLOAD -->
 <section id="download">
     <h2>Download</h2>
     <a href="duckmod-0.1.0.jar" download class="btn btn-main">
@@ -158,20 +110,9 @@
     </a>
 
     <!--
-        ============================
         ANMERKUNG (MOD):
-        Der Fabric Mod ruft später regelmäßig:
-
+        Fabric Client ruft:
         GET /api/cosmetics/active/{uuid}
-
-        Antwort:
-        {
-          "active": ["orange_cat_cape"]
-        }
-
-        Der Mod rendert diese Cosmetics bei allen Spielern,
-        die ebenfalls CatClient installiert haben.
-        ============================
     -->
 </section>
 
