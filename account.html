@@ -1,76 +1,66 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>CatClient | Account</title>
-    <style>
-        body {
-            font-family: Inter, sans-serif;
-            background: #0f111a;
-            color: white;
-            padding: 80px 10%;
-        }
-        .cosmetic {
-            background: #1a1d29;
-            padding: 25px;
-            border-radius: 18px;
-            margin-bottom: 20px;
-        }
-        .btn {
-            background: #ff8800;
-            color: black;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .btn.active {
-            background: #00ff88;
-            color: black;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CatClient | Account</title>
+<style>
+body{background:#0f111a;color:white;font-family:Inter,sans-serif;padding:50px;}
+h1{margin-bottom:30px;text-align:center;}
+.btn{background:#ff8800;color:black;padding:10px 20px;border-radius:12px;font-weight:700;margin:10px;cursor:pointer;}
+.cosmetic{background:#1a1d29;padding:20px;border-radius:18px;margin-bottom:15px;}
+</style>
 </head>
-
 <body>
 
 <h1>👤 Mein Account</h1>
+<div id="user-info"></div>
+<div id="cosmetics"></div>
 
-<div class="cosmetic">
-    <h3>Orange Cat Cape</h3>
-    <button class="btn" id="orange_cat_cape_btn">Aus</button>
-</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
-<a href="index.html">← Zurück</a>
+const firebaseConfig = {
+  apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
+  authDomain: "catclient-app.firebaseapp.com",
+  projectId: "catclient-app",
+  storageBucket: "catclient-app.appspot.com",
+  messagingSenderId: "421552104568",
+  appId: "1:421552104568:web:def5045766ba863f90f98d",
+  measurementId: "G-6Z48QJMQNJ"
+};
 
-<script>
-    // Simulierter "Account"-Status
-    const cosmetics = {
-        orange_cat_cape: false // false = Aus, true = An
-    };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    const btn = document.getElementById("orange_cat_cape_btn");
+onAuthStateChanged(auth, async user=>{
+    const infoDiv = document.getElementById("user-info");
+    const cosmeticsDiv = document.getElementById("cosmetics");
 
-    // Status anzeigen
-    function updateButton() {
-        if (cosmetics.orange_cat_cape) {
-            btn.textContent = "An";
-            btn.classList.add("active");
-        } else {
-            btn.textContent = "Aus";
-            btn.classList.remove("active");
-        }
+    if(!user){
+        infoDiv.innerHTML="<p>Bitte einloggen!</p>";
+        cosmeticsDiv.innerHTML="";
+        return;
     }
 
-    // Klick-Handler
-    btn.addEventListener("click", () => {
-        // Status umschalten
-        cosmetics.orange_cat_cape = !cosmetics.orange_cat_cape;
-        updateButton();
-    });
+    infoDiv.innerHTML=`<p>Eingeloggt als: ${user.displayName} <button class="btn" id="logout-btn">Logout</button></p>`;
+    document.getElementById("logout-btn").addEventListener("click", ()=>signOut(auth));
 
-    // initial anzeigen
-    updateButton();
+    const userDoc = await getDoc(doc(db,"users",user.uid));
+    const owned = userDoc.exists() && userDoc.data().ownedCosmetics ? userDoc.data().ownedCosmetics : [];
+
+    cosmeticsDiv.innerHTML="<h3>Gekaufte Cosmetics:</h3>";
+    if(owned.length===0) cosmeticsDiv.innerHTML+="<p>Keine Cosmetics gekauft</p>";
+    else owned.forEach(cosmetic=>{
+        const div = document.createElement("div");
+        div.className="cosmetic";
+        div.textContent=cosmetic;
+        cosmeticsDiv.appendChild(div);
+    });
+});
 </script>
 
 </body>
