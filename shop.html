@@ -1,67 +1,136 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>CatClient | Shop</title>
+<meta charset="UTF-8">
+<title>CatClient | Shop</title>
 
-    <!--
-        ANMERKUNG (SHOP):
-        Diese Seite zeigt kaufbare Cosmetics.
-        Daten kommen vom Backend.
-    -->
+<style>
+:root {
+    --primary: #ff8800;
+    --bg: #0f111a;
+    --card-bg: #1a1d29;
+    --text: #ffffff;
+    --text-dim: #e0e0e0;
+}
 
-    <style>
-        body {
-            font-family: Inter, sans-serif;
-            background: #0f111a;
-            color: white;
-            padding: 80px 10%;
-        }
-        .item {
-            background: #1a1d29;
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-        }
-        .btn {
-            background: #ff8800;
-            color: black;
-            padding: 12px 24px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-        }
-    </style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0f111a, #181a28);
+    color: var(--text);
+    padding: 80px 10%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 60px;
+    background: linear-gradient(90deg, #ff8800, #ffaa33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.item {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(255,136,0,0.4);
+}
+
+.item h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #ff8800, #ffaa33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.item p {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.btn {
+    background: linear-gradient(135deg, #ff8800, #ffaa33);
+    color: #000;
+    padding: 12px 28px;
+    border-radius: 14px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,136,0,0.5);
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 40px;
+    background: linear-gradient(135deg, #ffffff, #ffcc88);
+    color: #000;
+    padding: 12px 28px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255,136,0,0.4);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 50px 5%;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .item h2 {
+        font-size: 1.5rem;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <h1>🎨 Cosmetics Shop</h1>
 
-<!--
-    ANMERKUNG (BACKEND):
-    GET /api/cosmetics/shop
-
-    Antwort:
-    [
-      { "id": "orange_cat_cape", "name": "Orange Cat Cape", "price": 3.99 }
-    ]
--->
-
 <div class="item">
     <h2>Orange Cat Cape</h2>
     <p>Legendäres Katzen-Cape</p>
-
-    <!--
-        ANMERKUNG (KAUF):
-        POST /api/cosmetics/buy
-        Body: { cosmeticId: "orange_cat_cape" }
-    -->
     <button class="btn">Kaufen</button>
 </div>
 
-<a href="index.html">← Zurück</a>
+<div class="item">
+    <h2>Blauer Katzenhut</h2>
+    <p>Stylischer Kopfschmuck für deinen CatClient</p>
+    <button class="btn">Kaufen</button>
+</div>
+
+<a href="index.html" class="back-btn">← Zurück</a>
 
 </body>
 </html>
