@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>CatClient | Shop</title>
+
+    <!--
+        ANMERKUNG (SHOP):
+        Diese Seite zeigt kaufbare Cosmetics.
+        Daten kommen vom Backend.
+    -->
+
+    <style>
+        body {
+            font-family: Inter, sans-serif;
+            background: #0f111a;
+            color: white;
+            padding: 80px 10%;
+        }
+        .item {
+            background: #1a1d29;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background: #ff8800;
+            color: black;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🎨 Cosmetics Shop</h1>
+
+<!--
+    ANMERKUNG (BACKEND):
+    GET /api/cosmetics/shop
+
+    Antwort:
+    [
+      { "id": "orange_cat_cape", "name": "Orange Cat Cape", "price": 3.99 }
+    ]
+-->
+
+<div class="item">
+    <h2>Orange Cat Cape</h2>
+    <p>Legendäres Katzen-Cape</p>
+
+    <!--
+        ANMERKUNG (KAUF):
+        POST /api/cosmetics/buy
+        Body: { cosmeticId: "orange_cat_cape" }
+    -->
+    <button class="btn">Kaufen</button>
+</div>
+
+<a href="index.html">← Zurück</a>
+
+</body>
+</html>
