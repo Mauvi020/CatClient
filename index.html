@@ -90,16 +90,16 @@ import {
   browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { 
-  getFirestore, 
-  doc, 
-  getDoc, 
-  setDoc, 
-  serverTimestamp 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  getDatabase, 
+  ref, 
+  get, 
+  set 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
   apiKey:"AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
   authDomain:"catclient-app.firebaseapp.com",
+  databaseURL:"https://catclient-app-default-rtdb.europe-west1.firebasedatabase.app",
   projectId:"catclient-app",
   storageBucket:"catclient-app.firebasestorage.app",
   messagingSenderId:"421552104568",
@@ -108,7 +108,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+
+// 🔐 Dauerlogin (keine 30-Tage-Abmeldung)
+await setPersistence(auth, browserLocalPersistence);
+
+const db = getDatabase(app);
 const provider = new OAuthProvider("microsoft.com");
 
 const loginBtn = document.getElementById("loginBtn");
@@ -116,34 +120,32 @@ const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
 const loginHint = document.getElementById("loginHint");
 
-// 🔒 Session bleibt beim Reload erhalten
-await setPersistence(auth, browserLocalPersistence);
-
 loginBtn.onclick = () => signInWithRedirect(auth, provider);
 logoutBtn.onclick = () => signOut(auth);
 
-// Ergebnis nach Redirect holen
+// Redirect-Ergebnis holen
 getRedirectResult(auth).catch(console.error);
 
+// 📁 User-Verzeichnis in Realtime DB anlegen
 async function createUserDirectory(user) {
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
+  const userRef = ref(db, "users/" + user.uid);
+  const snap = await get(userRef);
 
   if (!snap.exists()) {
-    await setDoc(userRef, {
+    await set(userRef, {
       displayName: user.displayName || "Spieler",
       email: user.email || "",
       provider: "microsoft",
-      createdAt: serverTimestamp(),
+      createdAt: Date.now(),
       directory: {
         cosmetics: [],
         settings: {},
         inventory: []
       }
     });
-    console.log("Neuer Spieler in DB angelegt:", user.uid);
+    console.log("✅ Neuer Spieler in Realtime DB:", user.uid);
   } else {
-    console.log("Spieler existiert bereits:", user.uid);
+    console.log("ℹ️ Spieler existiert bereits:", user.uid);
   }
 }
 
@@ -154,7 +156,7 @@ onAuthStateChanged(auth, async user => {
     logoutBtn.style.display = "inline-block";
     loginHint.style.display = "none";
 
-    // 🗂️ User-Verzeichnis anlegen
+    // 🔥 Auto-Setup
     await createUserDirectory(user);
 
   } else {
