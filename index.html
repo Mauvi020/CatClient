@@ -27,7 +27,18 @@ section{padding:90px 10%;}
 .download-field{background:linear-gradient(180deg,#1a1d29 0%,#22253a 100%);padding:50px;border-radius:30px;max-width:500px;width:100%;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,.5);}
 .download-field h2{margin-bottom:10px;font-size:2.2rem;color:#fff;}
 .download-field p{margin-bottom:30px;color:#f0e0c0;font-weight:500;}
-.download-container .btn-main{width:100%;max-width:250px;padding:18px 0;border-radius:20px;font-weight:700;}
+.download-container .btn-main{
+  width:100%;
+  max-width:350px;       /* Breiter Button */
+  padding:20px 0;        /* Höher */
+  font-size:1.2rem;      /* Größerer Text */
+  border-radius:25px;    /* Rundere Ecken */
+  font-weight:800;
+  transition: transform 0.2s; /* kleiner Hover-Effekt */
+}
+.download-container .btn-main:hover{
+  transform: scale(1.05); /* Button wächst leicht beim Hover */
+}
 footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;}
 </style>
 </head>
@@ -46,7 +57,6 @@ footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;
     <a href="#features">Features</a>
     <a href="#download">Download</a>
     <a href="shop.html">Shop</a>
-    <a href="player-search.html">Spieler</a>
   </div>
 </header>
 
@@ -68,7 +78,6 @@ footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;
     <div class="download-container">
       <a id="downloadBtn" href="catclient-1.0.0.jar" class="btn-main">Download (.jar)</a>
       <p id="loginHint" style="color:#aaa;font-size:.9rem;margin-top:12px">
-        Optional: Logge dich ein für Cosmetics & Cloud-Sync.
       </p>
     </div>
   </div>
