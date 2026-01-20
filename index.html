@@ -66,6 +66,9 @@ footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;
     <p>Lade den CatClient herunter und starte direkt!</p>
     <div class="download-container">
       <a id="downloadBtn" href="catclient-1.0.0.jar" class="btn-main">Download (.jar)</a>
+      <p id="loginHint" style="color:#aaa;font-size:.9rem;margin-top:12px">
+        Optional: Logge dich ein für Cosmetics & Cloud-Sync.
+      </p>
     </div>
   </div>
 </section>
@@ -87,38 +90,33 @@ const firebaseConfig = {
   appId:"1:421552104568:web:def5045766ba863f90f98d"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const provider=new OAuthProvider("microsoft.com");
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new OAuthProvider("microsoft.com");
 
-const loginBtn=document.getElementById("loginBtn");
-const logoutBtn=document.getElementById("logoutBtn");
-const userInfo=document.getElementById("userInfo");
-const downloadBtn=document.getElementById("downloadBtn");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const userInfo = document.getElementById("userInfo");
+const loginHint = document.getElementById("loginHint");
 
-loginBtn.onclick=()=>signInWithRedirect(auth,provider);
-logoutBtn.onclick=()=>signOut(auth);
+loginBtn.onclick = () => signInWithRedirect(auth, provider);
+logoutBtn.onclick = () => signOut(auth);
 
 getRedirectResult(auth).catch(console.error);
 
-onAuthStateChanged(auth,user=>{
-  if(user){
-    userInfo.textContent="Eingeloggt als "+user.displayName;
-    loginBtn.style.display="none";
-    logoutBtn.style.display="inline-block";
-  }else{
-    userInfo.textContent="";
-    loginBtn.style.display="inline-block";
-    logoutBtn.style.display="none";
+onAuthStateChanged(auth, user => {
+  if (user) {
+    userInfo.textContent = "Eingeloggt als " + (user.displayName || "User");
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    loginHint.style.display = "none";
+  } else {
+    userInfo.textContent = "";
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+    loginHint.style.display = "block";
   }
 });
-
-downloadBtn.onclick=e=>{
-  if(!auth.currentUser){
-    e.preventDefault();
-    alert("Bitte logge dich zuerst mit Microsoft ein.");
-  }
-};
 </script>
 
 </body>
