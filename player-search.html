@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CatClient | Spieler suchen</title>
+<style>
+body{background:#0f111a;color:white;font-family:Inter,sans-serif;padding:50px;}
+h1{text-align:center;margin-bottom:30px;}
+input, button{padding:12px 18px;border-radius:12px;margin:5px;font-weight:700;}
+input{width:250px;}
+button{background:#ff8800;color:black;border:none;cursor:pointer;}
+#result{margin-top:30px;}
+.skin{width:150px;height:150px;border-radius:50%;border:2px solid #fff;margin-bottom:15px;}
+.cosmetic{background:#1a1d29;padding:12px;border-radius:12px;margin:5px 0;}
+</style>
+</head>
+<body>
+
+<h1>🔍 Spieler suchen</h1>
+<input type="text" id="username" placeholder="Minecraft Benutzername">
+<button id="searchBtn">Suchen</button>
+
+<div id="result"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
+  authDomain: "catclient-app.firebaseapp.com",
+  databaseURL: "https://catclient-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "catclient-app",
+  storageBucket: "catclient-app.appspot.com",
+  messagingSenderId: "421552104568",
+  appId: "1:421552104568:web:def5045766ba863f90f98d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const searchBtn = document.getElementById("searchBtn");
+const resultDiv = document.getElementById("result");
+
+searchBtn.onclick = async () => {
+    const username = document.getElementById("username").value.trim();
+    resultDiv.innerHTML = "";
+
+    if(!username){
+        alert("Bitte einen Minecraft-Benutzernamen eingeben!");
+        return;
+    }
+
+    try {
+        // UUID vom Minecraft Spieler holen
+        const uuidRes = await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
+        if(!uuidRes.ok) throw new Error("Spieler nicht gefunden");
+        const uuidData = await uuidRes.json();
+        const uuid = uuidData.id;
+
+        // Skin von Minecraft
+        const skinURL = `https://crafatar.com/avatars/${uuid}?size=150&overlay`;
+        const img = document.createElement("img");
+        img.src = skinURL;
+        img.className = "skin";
+        resultDiv.appendChild(img);
+
+        const nameP = document.createElement("p");
+        nameP.textContent = `Spieler: ${username}`;
+        resultDiv.appendChild(nameP);
+
+        // CatClient Cosmetics aus Realtime DB
+        const userRef = ref(db, `users/${uuid}/directory/cosmetics`);
+        const snap = await get(userRef);
+        const cosmetics = snap.exists() ? snap.val() : [];
+
+        const cosTitle = document.createElement("h3");
+        cosTitle.textContent = "CatClient Cosmetics:";
+        resultDiv.appendChild(cosTitle);
+
+        if(cosmetics.length === 0){
+            const noCos = document.createElement("p");
+            noCos.textContent = "Keine Cosmetics";
+            resultDiv.appendChild(noCos);
+        } else {
+            cosmetics.forEach(c => {
+                const div = document.createElement("div");
+                div.className = "cosmetic";
+                div.textContent = c;
+                resultDiv.appendChild(div);
+            });
+        }
+
+    } catch(err){
+        console.error(err);
+        alert("Spieler nicht gefunden oder Fehler beim Laden.");
+    }
+};
+</script>
+
+</body>
+</html>
