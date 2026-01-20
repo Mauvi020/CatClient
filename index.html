@@ -66,7 +66,6 @@ footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;
     <p>Lade den CatClient herunter und starte direkt!</p>
     <div class="download-container">
       <a id="downloadBtn" href="catclient-1.0.0.jar" class="btn-main">Download (.jar)</a>
-     
       <p id="loginHint" style="color:#aaa;font-size:.9rem;margin-top:12px">
         Optional: Logge dich ein für Cosmetics & Cloud-Sync.
       </p>
@@ -80,7 +79,23 @@ footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, OAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { 
+  getAuth, 
+  OAuthProvider, 
+  signInWithRedirect, 
+  getRedirectResult, 
+  onAuthStateChanged, 
+  signOut,
+  setPersistence,
+  browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { 
+  getFirestore, 
+  doc, 
+  getDoc, 
+  setDoc, 
+  serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey:"AIzaSyChdNqyb8KIkHTe4TCJkQOJ8V2t2u6oJTo",
@@ -93,6 +108,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new OAuthProvider("microsoft.com");
 
 const loginBtn = document.getElementById("loginBtn");
@@ -100,17 +116,47 @@ const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
 const loginHint = document.getElementById("loginHint");
 
+// 🔒 Session bleibt beim Reload erhalten
+await setPersistence(auth, browserLocalPersistence);
+
 loginBtn.onclick = () => signInWithRedirect(auth, provider);
 logoutBtn.onclick = () => signOut(auth);
 
+// Ergebnis nach Redirect holen
 getRedirectResult(auth).catch(console.error);
 
-onAuthStateChanged(auth, user => {
+async function createUserDirectory(user) {
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+
+  if (!snap.exists()) {
+    await setDoc(userRef, {
+      displayName: user.displayName || "Spieler",
+      email: user.email || "",
+      provider: "microsoft",
+      createdAt: serverTimestamp(),
+      directory: {
+        cosmetics: [],
+        settings: {},
+        inventory: []
+      }
+    });
+    console.log("Neuer Spieler in DB angelegt:", user.uid);
+  } else {
+    console.log("Spieler existiert bereits:", user.uid);
+  }
+}
+
+onAuthStateChanged(auth, async user => {
   if (user) {
     userInfo.textContent = "Eingeloggt als " + (user.displayName || "User");
     loginBtn.style.display = "none";
     logoutBtn.style.display = "inline-block";
     loginHint.style.display = "none";
+
+    // 🗂️ User-Verzeichnis anlegen
+    await createUserDirectory(user);
+
   } else {
     userInfo.textContent = "";
     loginBtn.style.display = "inline-block";
