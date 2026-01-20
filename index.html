@@ -109,10 +109,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// 🔐 Auth Setup mit Dauerlogin
-const auth = getAuth(app);
-await setPersistence(auth, browserLocalPersistence);
+// 🔐 Auth Setup
+async function initAuth() {
+  const auth = getAuth(app);
+  await setPersistence(auth, browserLocalPersistence);
+  return auth;
+}
 
+const auth = await initAuth();
 const db = getDatabase(app);
 const provider = new OAuthProvider("microsoft.com");
 
