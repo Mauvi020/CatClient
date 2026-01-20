@@ -3,21 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CatClient | Microsoft Login</title>
+<title>CatClient | Der ultimative Minecraft Client</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-body { background:#0f111a; color:white; font-family:Inter,sans-serif; text-align:center; padding:50px; }
-button { background:#2F2FAD; color:white; border:none; padding:15px 30px; border-radius:12px; font-weight:700; cursor:pointer; margin:10px; }
-a.btn { display:inline-block; background:#ff8800; color:black; padding:12px 24px; border-radius:12px; font-weight:700; text-decoration:none; margin:10px; }
+:root{--primary:#ff8800;--bg:#0f111a;--card-bg:#1a1d29;--text:#fff;--text-dim:#e0e0e0;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0f111a,#181a28);color:var(--text);}
+header{position:sticky;top:0;background:rgba(15,17,26,.9);padding:20px 10%;display:flex;flex-direction:column;align-items:center;z-index:100;}
+.top-row{display:flex;width:100%;max-width:1200px;justify-content:space-between;align-items:center;margin-bottom:15px;}
+.logo{font-size:1.8rem;font-weight:900;}
+.btn-login,.btn-logout{padding:12px 24px;border-radius:14px;font-weight:700;background:linear-gradient(135deg,#ff8800,#ffaa33);border:none;cursor:pointer;margin-left:10px;}
+.user-info{font-size:.9rem;color:var(--text-dim);margin-left:10px;}
+.bottom-row{display:flex;justify-content:center;gap:40px;width:100%;}
+.bottom-row a{color:#f5f5f5;font-weight:600;text-decoration:none;}
+.bottom-row a:hover{color:var(--primary);}
+.hero{padding:120px 10%;text-align:center;}
+.hero h1{font-size:3rem;margin-bottom:20px;background:linear-gradient(90deg,#ff8800,#ffaa33);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:1.2rem;margin-bottom:40px;color:var(--text-dim);}
+.btn-main{padding:16px 32px;border-radius:14px;font-weight:700;background:linear-gradient(135deg,#ff8800,#ffaa33);color:#000;text-decoration:none;cursor:pointer;}
+section{padding:90px 10%;}
+.card{background:var(--card-bg);padding:40px;border-radius:26px;margin-bottom:30px;}
+#download{display:flex;justify-content:center;}
+.download-field{background:linear-gradient(180deg,#1a1d29 0%,#22253a 100%);padding:50px;border-radius:30px;max-width:500px;width:100%;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,.5);}
+.download-field h2{margin-bottom:10px;font-size:2.2rem;color:#fff;}
+.download-field p{margin-bottom:30px;color:#f0e0c0;font-weight:500;}
+.download-container .btn-main{width:100%;max-width:250px;padding:18px 0;border-radius:20px;font-weight:700;}
+footer{text-align:center;padding:40px 10%;color:var(--text-dim);font-size:.9rem;}
 </style>
 </head>
 <body>
 
-<h1>CatClient</h1>
-<button id="login-btn">Login mit Microsoft</button>
-<button id="logout-btn" style="display:none;">Logout</button>
-<p id="user-info"></p>
+<header>
+  <div class="top-row">
+    <div class="logo">🐾 CatClient</div>
+    <div>
+      <button id="loginBtn" class="btn-login">Login mit Microsoft</button>
+      <button id="logoutBtn" class="btn-logout" style="display:none;">Logout</button>
+      <span id="userInfo" class="user-info"></span>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <a href="#features">Features</a>
+    <a href="#download">Download</a>
+    <a href="shop.html">Shop</a>
+  </div>
+</header>
 
-<a href="catclient-1.0.0.jar" class="btn">Download ohne Login</a>
+<section class="hero">
+  <h1>Dein Spiel.<br>Deine Regeln.</h1>
+  <p>Mehr FPS, mehr Kontrolle, Cosmetics für alle CatClient Nutzer.</p>
+  <a href="#download" class="btn-main">Jetzt herunterladen</a>
+</section>
+
+<section id="features">
+  <div class="card"><h3>⚡ Performance</h3><p>Optimiert für maximale FPS.</p></div>
+  <div class="card"><h3>🎨 Cosmetics</h3><p>Capes & mehr – online synchronisiert.</p></div>
+</section>
+
+<section id="download">
+  <div class="download-field">
+    <h2>Download</h2>
+    <p>Lade den CatClient herunter und starte direkt!</p>
+    <div class="download-container">
+      <a id="downloadBtn" href="catclient-1.0.0.jar" class="btn-main">Download (.jar)</a>
+      <p id="loginHint" style="color:#aaa;font-size:.9rem;margin-top:12px">
+        Optional: Logge dich ein für Cosmetics & Cloud-Sync.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 CatClient – Nicht mit Mojang AB verbunden.</p>
+</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
@@ -44,7 +102,6 @@ const firebaseConfig = {
   appId: "1:421552104568:web:def5045766ba863f90f98d"
 };
 
-// App initialisieren
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 await setPersistence(auth, browserLocalPersistence); // Dauerlogin
@@ -52,11 +109,12 @@ const db = getDatabase(app);
 const provider = new OAuthProvider("microsoft.com");
 
 // DOM Elemente
-const loginBtn = document.getElementById("login-btn");
-const logoutBtn = document.getElementById("logout-btn");
-const userInfo = document.getElementById("user-info");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const userInfo = document.getElementById("userInfo");
+const loginHint = document.getElementById("loginHint");
 
-// Login/Logout
+// Login / Logout
 loginBtn.onclick = () => signInWithRedirect(auth, provider);
 logoutBtn.onclick = () => signOut(auth);
 
@@ -89,11 +147,13 @@ onAuthStateChanged(auth, async user=>{
     userInfo.textContent = "Eingeloggt als: " + (user.displayName || "User");
     loginBtn.style.display = "none";
     logoutBtn.style.display = "inline-block";
+    loginHint.style.display = "none";
     await createUserDirectory(user);
   } else {
     userInfo.textContent = "";
     loginBtn.style.display = "inline-block";
     logoutBtn.style.display = "none";
+    loginHint.style.display = "block";
   }
 });
 </script>
