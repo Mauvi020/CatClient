@@ -55,7 +55,10 @@ searchBtn.onclick = async () => {
     try {
         // UUID vom Minecraft Spieler holen
         const uuidRes = await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
-        if(!uuidRes.ok) throw new Error("Spieler nicht gefunden");
+        if(!uuidRes.ok){
+            resultDiv.innerHTML = `<p>Spieler nicht gefunden.</p>`;
+            return;
+        }
         const uuidData = await uuidRes.json();
         const uuid = uuidData.id;
 
@@ -81,7 +84,7 @@ searchBtn.onclick = async () => {
 
         if(cosmetics.length === 0){
             const noCos = document.createElement("p");
-            noCos.textContent = "Keine Cosmetics";
+            noCos.textContent = "Keine Cosmetics (Spieler evtl. noch nicht eingeloggt)";
             resultDiv.appendChild(noCos);
         } else {
             cosmetics.forEach(c => {
@@ -94,7 +97,7 @@ searchBtn.onclick = async () => {
 
     } catch(err){
         console.error(err);
-        alert("Spieler nicht gefunden oder Fehler beim Laden.");
+        resultDiv.innerHTML = `<p>Fehler beim Laden der Daten.</p>`;
     }
 };
 </script>
